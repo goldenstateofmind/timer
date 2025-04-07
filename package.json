@@ -9,9 +9,12 @@
     "url": ""
   },
   "scripts": {
-    "dev": "vite --port 8111",
+    "dev": "vite",
+    "old.dev": "vite --port 8111",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "publishConfig": {
     "registry": "http://registry.npmjs.org/"
@@ -69,9 +72,5 @@
     "prettier": "^2.8.4",
     "tailwindcss": "^3.2.7"
   },
-  "homepage": "https://goldenstateofmind.github.io/timer",
-  "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
-  }
+  "homepage": "https://goldenstateofmind.github.io/timer"
 }

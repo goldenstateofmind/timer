@@ -10,6 +10,7 @@ import path from 'path'
 // })
 
 export default defineConfig({
+  base: '/timer/',
   plugins: [
     react(),
     dsv(),
