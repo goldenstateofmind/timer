@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react'
 import confetti from 'canvas-confetti'
 import imageUrls from './imageUrls.json'
 
+/* 
+git commit --amend --author="goldenstateofmind <40486599+goldenstateofmind@users.noreply.github.com>"
+ */
+
 const CountdownTimerDisc = () => {
   const [timeLeft, setTimeLeft] = useState(60) // 60 seconds default
   const [isRunning, setIsRunning] = useState(false)
