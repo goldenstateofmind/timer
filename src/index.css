@@ -1,0 +1,354 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.fira-code-400 {
+  font-family: 'Fira Code', monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.debug-all {
+  outline: 2px dotted #2af;
+  * {
+    outline: 1px dotted orange;
+  }
+}
+
+html {
+  @apply text-neutral-900;
+  font-weight: 400;
+  /* font-weight: 300; */
+  @apply text-sm;
+  /* @apply font-light; */
+  /* overflow: hidden; */
+  height: 100%;
+}
+
+#root {
+  /* https://stackoverflow.com/questions/32660748/how-to-use-apples-san-francisco-font-on-a-webpage */
+  display: flex;
+  width: 100%;
+  /* height: 100%; */
+  /* overflow: hidden; */
+  flex-wrap: wrap;
+  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
+  /* font-family: 'SF Pro Text', 'SF Pro Icons', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, Inter, system-ui, */
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, Inter, system-ui, Helvetica, Arial,
+    sans-serif;
+  line-height: 1.5;
+}
+
+/* 
+headings
+"SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif
+body
+"SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif 
+*/
+
+code {
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  background-color: #afb8c133;
+  /* background-color: var(--color-neutral-muted); */
+  border-radius: 6px;
+}
+
+pre {
+  font-size: 85%;
+}
+
+button.brand,
+[type='button'].brand,
+[type='reset'].brand,
+[type='submit'] {
+  @apply bg-blue-400 hover:bg-blue-800 text-white py-1 px-4 m-1 rounded-full;
+}
+
+div.tag {
+  @apply p-0 mx-0.5 rounded-full w-6 h-6 inline-flex justify-center items-center border border-white;
+  /* @apply text-gray-900  p-0 mx-0.5 rounded-full w-6 h-6 inline-flex justify-center items-center border border-white; */
+}
+
+.eisenhower-matrix {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 1px;
+  border: 1px solid #ccc;
+}
+
+.quadrant {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  text-align: center;
+}
+
+.quadrant h3 {
+  margin: 0;
+}
+
+.grid > div {
+  /* background-color: yellow; */
+}
+
+.grid-cols-2-minmax-1fr {
+  grid-template-columns: minmax(auto, max-content) 1fr;
+}
+
+.user-agent {
+  /* kind of like tailwind typography plugin "prose" */
+  all: revert; /* locally remove tailwind styles */
+}
+
+summary {
+  padding-left: 4px;
+  border-radius: 4px;
+  &:hover {
+    /* filter: brightness(120%) saturate(120%); */
+    background-color: white;
+  }
+}
+
+/* 
+summary {
+  list-style: none;
+}
+
+details {
+  ::marker,
+  ::-webkit-details-marker {
+    display: none;
+  }
+}
+
+details summary:before {
+  content: '+';
+  display: inline-block;
+  rotate: 0deg;
+  margin-inline-end: 0.5em;
+  transition: rotate 0.13s ease-in-out;
+}
+
+details[open] > summary:before {
+  rotate: 45deg;
+} */
+
+/* asdf */
+
+details {
+  ::marker,
+  ::-webkit-details-marker {
+    display: none;
+  }
+  &[open] > summary:before {
+    rotate: 45deg;
+  }
+  summary {
+    list-style: none;
+    &:before {
+      content: '+';
+      display: inline-block;
+      rotate: 0deg;
+      margin-inline-end: 0.5em;
+      transition: rotate 0.13s ease-in-out;
+    }
+  }
+}
+
+.unreset {
+  all: revert; /* locally remove tailwind styles */
+}
+
+.rct-node-icon *,
+.rct-node-icon {
+  padding: 0;
+  width: 0;
+}
+.rct-options button {
+  /* background: #2af2; */
+  height: 20px;
+  width: 20px;
+}
+
+p {
+  @apply my-4;
+}
+
+.card-section-head {
+  @apply font-medium;
+}
+
+button.btn {
+  -webkit-app-region: no-drag;
+  -webkit-app-region: no-drag;
+  /* @include mode-border(border, 1px solid); */
+  /* border: 1px solid black; */
+  /* font-size: $font-size; */
+  /* line-height: $line-height; */
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #c5c5c5;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  display: inline-block;
+  /* font-size: 13px; */
+  /* height: 21px; */
+  /* line-height: 17px; */
+  /* margin-bottom: 0; */
+  /* max-height: 21px; */
+  padding: 1px 5px;
+  text-align: center;
+  white-space: nowrap;
+
+  &:focus {
+    outline: none;
+    @include mode-secondary-accent(border-color);
+    @include mode-secondary-accent(box-shadow, 0 0 0 $spread-radius);
+  }
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.chevron-right {
+  border-style: solid;
+  /* border-width: 0.1rem 0.1rem 0 0; */
+  display: inline-block;
+  height: 50%;
+  position: relative;
+  rotate: 45deg;
+  aspect-ratio: 1;
+}
+
+.venn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #fff;
+  /*  */
+  position: relative;
+  width: 200px;
+  height: 100px;
+}
+
+/* SolarEstimator */
+.circle {
+  mix-blend-mode: multiply;
+  position: absolute;
+  border: 1px solid #999;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  /* opacity: 0.6; */
+}
+
+.circle1 {
+  background-color: #9998; /* Tomato color */
+  left: 0;
+}
+
+.circle2 {
+  background-color: #ccc8; /* Steel Blue color */
+  left: 70;
+}
+
+table {
+  /* width: 100%; */
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 2px;
+  /* padding: 10px; */
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+input[type='range'] {
+  /* width: 100px; */
+}
+/* end SolarEstimator */
+
+input[type='number'] {
+  text-align: right;
+  /* font-family: monospace; */
+  font-variant-numeric: ordinal slashed-zero tabular-nums;
+}
+
+
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
