@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import confetti from 'canvas-confetti'
 import imageUrls from './imageUrls.json'
+import { Fireworks } from '@fireworks-js/react'
 
 /* 
 git commit --amend --author="goldenstateofmind <40486599+goldenstateofmind@users.noreply.github.com>"
@@ -13,6 +14,8 @@ const CountdownTimerDisc = () => {
   const [inputDuration, setInputDuration] = useState('60')
   const [imageUrl, setImageUrl] = useState('')
   const [isComplete, setIsComplete] = useState(false)
+
+  const [showFireworks, setShowFireworks] = useState(false)
 
   const UNSPLASH_ACCESS_KEY = 'C1fArNZpJtsjLWkTaNCsKD8dZ6dxj8V7DznCYcHtWDI'
   const QUERY = 'cute animal'
@@ -77,7 +80,8 @@ const CountdownTimerDisc = () => {
     } else if (timeLeft === 0) {
       setIsRunning(false)
       setIsComplete(true)
-      launchConfetti()
+      // launchConfetti()
+      setShowFireworks(true)
       // Clear animation flag after it's played (e.g., after 1.5s)
       setTimeout(() => setIsComplete(false), 1500)
     }
@@ -177,11 +181,11 @@ const CountdownTimerDisc = () => {
 
   return (
     <div
-      className={`flex flex-col items-center justify-center p-0 bg-gray-100 rounded-lg shadow-md transition duration-300 ${
+      className={`flex flex-col items-center justify-center p-0 bg-gray-900 text-white rounded-lg shadow-md transition duration-300 ${
         isComplete ? 'animate-ping-once' : ''
       }`}
     >
-      <div className="w-screen h-screen flex flex-col items-center justify-center p-0 bg-gray-100 rounded-lg shadow-md">
+      <div className="w-screen h-screen flex flex-col items-center justify-center p-0  rounded-lg shadow-md">
         <div
           className={`relative w-[${WIDGET_SIZE}px] h-[${WIDGET_SIZE}px] mb-6 bg-cover bg-center rounded-full overflow-hidden`}
           style={{ backgroundImage: `url(${imageUrl})` }}
@@ -199,6 +203,20 @@ const CountdownTimerDisc = () => {
           <div className="text-8xl mb-10">{formatTime(timeLeft)}</div>
           {/* <div>{Math.round(percentage)}%</div> */}
         </div>
+
+        {showFireworks && !isRunning && (
+          <Fireworks
+            options={{ opacity: 0.8, acceleration: 1.05 }}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              pointerEvents: 'none',
+            }}
+          />
+        )}
 
         <div className="flex space-x-2 mb-6">
           {!isRunning ? (

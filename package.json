@@ -20,6 +20,7 @@
     "registry": "http://registry.npmjs.org/"
   },
   "dependencies": {
+    "@fireworks-js/react": "^2.10.8",
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.5",
