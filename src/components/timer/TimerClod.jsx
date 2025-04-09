@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import confetti from 'canvas-confetti'
+// import confetti from 'canvas-confetti'
 import imageUrls from './imageUrls.json'
 import { Fireworks } from '@fireworks-js/react'
 
@@ -16,6 +16,7 @@ const CountdownTimerDisc = () => {
   const [isComplete, setIsComplete] = useState(false)
 
   const [showFireworks, setShowFireworks] = useState(false)
+  const [files, setFiles] = useState([])
 
   const UNSPLASH_ACCESS_KEY = 'C1fArNZpJtsjLWkTaNCsKD8dZ6dxj8V7DznCYcHtWDI'
   const QUERY = 'cute animal'
@@ -24,56 +25,69 @@ const CountdownTimerDisc = () => {
 
   const fetchImage = async () => {
     const randomIndex = Math.floor(Math.random() * imageUrls.length)
-    // const imageUrl = imageUrls?.[randomIndex]
-    setImageUrl(imageUrls?.[randomIndex])
+    // setImageUrl(imageUrls?.[randomIndex])
+    console.log('files', files)
+    setImageUrl(files?.[randomIndex])
   }
 
-  const launchConfetti = () => {
-    var confettiTime = 3 * 1_000
-    var animationEnd = Date.now() + confettiTime
+  // const launchConfetti = () => {
+  //   var confettiTime = 3 * 1_000
+  //   var animationEnd = Date.now() + confettiTime
 
-    var scalar = 5
-    const emojis = ['🎉', '✨', '🥳', '💥', '🔥', '🎊', '🦄']
-    const emoji = emojis[Math.floor(Math.random() * emojis.length)]
-    console.log('emoji', emoji)
-    var shape = confetti.shapeFromText({ text: emoji, scalar })
-    // var unicorn = confetti.shapeFromText({ text: '🦄', scalar })
+  //   var scalar = 5
+  //   const emojis = ['🎉', '✨', '🥳', '💥', '🔥', '🎊', '🦄']
+  //   const emoji = emojis[Math.floor(Math.random() * emojis.length)]
+  //   console.log('emoji', emoji)
+  //   var shape = confetti.shapeFromText({ text: emoji, scalar })
+  //   // var unicorn = confetti.shapeFromText({ text: '🦄', scalar })
 
-    var defaults = {
-      spread: 360,
-      ticks: 60,
-      gravity: 0,
-      decay: 0.96,
-      startVelocity: 12,
-      shapes: [shape],
-      scalar,
-    }
+  //   var defaults = {
+  //     spread: 360,
+  //     ticks: 60,
+  //     gravity: 0,
+  //     decay: 0.96,
+  //     startVelocity: 12,
+  //     shapes: [shape],
+  //     scalar,
+  //   }
 
-    function randomInRange(min, max) {
-      return Math.random() * (max - min) + min
-    }
+  //   function randomInRange(min, max) {
+  //     return Math.random() * (max - min) + min
+  //   }
 
-    var interval = setInterval(function () {
-      var timeLeft = animationEnd - Date.now()
+  //   var interval = setInterval(function () {
+  //     var timeLeft = animationEnd - Date.now()
 
-      if (timeLeft <= 0) {
-        return clearInterval(interval)
-      }
+  //     if (timeLeft <= 0) {
+  //       return clearInterval(interval)
+  //     }
 
-      var particleCount = 50 * (timeLeft / confettiTime)
-      // since particles fall down, start a bit higher than random
-      confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } })
-      confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } })
-    }, 250)
-  }
+  //     var particleCount = 50 * (timeLeft / confettiTime)
+  //     // since particles fall down, start a bit higher than random
+  //     confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } })
+  //     confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } })
+  //   }, 250)
+  // }
 
   useEffect(() => {
     fetchImage()
   }, [])
 
   useEffect(() => {
+    fetch('/manifest.json')
+      .then(res => res.json())
+      .then(data => {
+        const filePaths = data?.images?.filter(x => !x.includes('DS_store')) ?? []
+        setFiles(filePaths)
+        fetchImage()
+      })
+      .catch(err => console.error('Failed to load manifest:', err))
+  }, [])
+
+  useEffect(() => {
     let timer
     if (isRunning && timeLeft > 0) {
+      setShowFireworks(false)
       timer = setTimeout(() => {
         setTimeLeft(prevTime => prevTime - 1)
       }, 1000)
@@ -188,7 +202,7 @@ const CountdownTimerDisc = () => {
       <div className="w-screen h-screen flex flex-col items-center justify-center p-0  rounded-lg shadow-md">
         <div
           className={`relative w-[${WIDGET_SIZE}px] h-[${WIDGET_SIZE}px] mb-6 bg-cover bg-center rounded-full overflow-hidden`}
-          style={{ backgroundImage: `url(${imageUrl})` }}
+          style={{ backgroundImage: `url(./${imageUrl})` }}
         >
           <svg className="w-full h-full" viewBox={[0, 0, WIDGET_SIZE, WIDGET_SIZE].join(' ')}>
             {/* Background circle */}
