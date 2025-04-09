@@ -75,8 +75,9 @@ const CountdownTimerDisc = () => {
   }
 
   const resetTimer = () => {
-    setIsRunning(false)
-    setTimeLeft(duration)
+    // setIsRunning(false)
+    // setTimeLeft(duration)
+    setShowFireworks(false)
   }
 
   const handleDurationChange = e => {
