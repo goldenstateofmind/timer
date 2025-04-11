@@ -1,11 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react'
 // import confetti from 'canvas-confetti'
-import imageUrls from './imageUrls.json'
+import enEs from './en-es.json'
 import { Fireworks } from '@fireworks-js/react'
 
 /* 
 git commit --amend --author="goldenstateofmind <40486599+goldenstateofmind@users.noreply.github.com>"
- */
+
+Add padding
+magick input.png -gravity center -background none -extent 200%x200% output.png
+magick input.jpg -background none -gravity center -extent x200% output.png
+magick dinosaur.ankylosaurus.jpg -background none -gravity center -extent x200% dinosaur.ankylosaurus.png
+
+List rounded aspect ratios
+identify -format "%f: %[fx:round(w/h*100)/100]\n" *.png
+
+*/
 
 const CountdownTimerDisc = () => {
   const [timeLeft, setTimeLeft] = useState(60) // 60 seconds default
@@ -13,6 +22,7 @@ const CountdownTimerDisc = () => {
   const [duration, setDuration] = useState(60)
   const [inputDuration, setInputDuration] = useState('60')
   const [imageUrl, setImageUrl] = useState('')
+  const [esName, setEsName] = useState('')
   const [isComplete, setIsComplete] = useState(false)
 
   const [showFireworks, setShowFireworks] = useState(false)
@@ -27,7 +37,9 @@ const CountdownTimerDisc = () => {
     const randomIndex = Math.floor(Math.random() * files.length)
     // setImageUrl(imageUrls?.[randomIndex])
     const url = './' + files?.[randomIndex]
-    console.log('url', url)
+    const enName = url.split('.').at(-2)
+    const esName = enEs?.[enName]
+    setEsName(esName)
     setImageUrl(url)
   }
 
@@ -169,12 +181,14 @@ const CountdownTimerDisc = () => {
           style={{ backgroundImage: `url(${imageUrl})` }}
         >
           <svg className="w-full h-full" viewBox={[0, 0, WIDGET_SIZE, WIDGET_SIZE].join(' ')}>
-            {/* Background circle */}
-            {/* <circle cx={RADIUS} cy={RADIUS} r={RADIUS} fill="#eee0" /> */}
-
             {/* Pie slice representing remaining time */}
             <path d={generatePieSlice(endAngle)} fill="#48f" />
           </svg>
+        </div>
+
+        <div>
+          <div className="text-xl mb-10">{esName}</div>
+          {/* <div>{Math.round(percentage)}%</div> */}
         </div>
 
         <div>
@@ -272,33 +286,3 @@ const CountdownTimerDisc = () => {
 }
 
 export default CountdownTimerDisc
-
-// const fetchImage = async () => {
-//   const collectionId = 'pzkkM4TK1dE'
-//   const collectionId = 'KPahqwb_TeY'
-//   try {
-//     const url = `https://api.unsplash.com/collections/${collectionId}/photos?per_page=10&page=1&orientation=squarish`
-
-//     const response = await fetch(url, {
-//       headers: {
-//         Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}`,
-//       },
-//     })
-
-//     // const response = await fetch()
-//     // `https://api.unsplash.com/photos/random?query=${QUERY}&client_id=${UNSPLASH_ACCESS_KEY}`
-//     const data = await response.json()
-//     console.log('data', data)
-
-//     const imageUrls = data.map(x => x.urls?.small)
-//     console.log('--- imageUrls', imageUrls)
-
-//     if (data.urls) {
-//       setImageUrl(data.urls.small)
-//     }
-//   } catch (error) {
-//     console.error('Error fetching image:', error)
-//   } finally {
-//     // setLoading(false)
-//   }
-// }
